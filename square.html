@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spinning Square Demo</title>
+  <style>
+    :root { --size: 160px; --duration: 2s; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height: 100svh; display: grid; place-items: center; background: #f6f7fb;
+      color: #222;
+    }
+    .card {
+      background: white; width: min(680px, 92vw); border-radius: 16px; padding: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+    h1 { margin: 0 0 8px; font-size: clamp(20px, 3vw, 28px); }
+    p { margin: 0 0 20px; color: #555; }
+
+    .stage { display: grid; place-items: center; height: 320px; border: 1px dashed #ddd;
+      border-radius: 12px; background: linear-gradient(180deg, #fff, #fafafa);
+    }
+
+    .square {
+      width: var(--size); height: var(--size);
+      background: #6c5ce7; border-radius: 12px; box-shadow: 0 8px 20px rgba(108,92,231,.3);
+      transform: translateZ(0); /* enable GPU */
+    }
+
+    /* The magic: apply this class to make it spin */
+    .spin { animation: rotate var(--duration) linear infinite; }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
+    .controls > * { font-size: 14px; }
+    button, input[type="range"], select, label {
+      border-radius: 10px; border: 1px solid #ddd; padding: 10px 12px; background: #fff;
+    }
+    button { cursor: pointer; background: #111; color: #fff; border-color: #111; }
+    button.secondary { background: #fff; color: #111; }
+    .spacer { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Spinning Square</h1>
+    <p>HTML makes the structure, CSS animates it, JavaScript toggles the classes. Try the controls below!</p>
+
+    <div class="stage">
+      <div id="box" class="square spin" aria-label="Spinning square"></div>
+    </div>
+
+    <div class="controls">
+      <button id="toggle">Pause</button>
+      <label>Speed
+        <input id="speed" type="range" min="0.25" max="5" step="0.05" value="2" />
+        <span id="speedLabel">2.00s</span>
+      </label>
+      <label>
+        Direction
+        <select id="direction">
+          <option value="normal" selected>Clockwise</option>
+          <option value="reverse">Counter‑clockwise</option>
+        </select>
+      </label>
+      <span class="spacer"></span>
+      <button id="bigger" class="secondary">Bigger</button>
+      <button id="smaller" class="secondary">Smaller</button>
+    </div>
+  </div>
+
+  <script>
+    const box = document.getElementById('box');
+    const toggleBtn = document.getElementById('toggle');
+    const speed = document.getElementById('speed');
+    const speedLabel = document.getElementById('speedLabel');
+    const direction = document.getElementById('direction');
+    const bigger = document.getElementById('bigger');
+    const smaller = document.getElementById('smaller');
+
+    // Pause/Resume spinning by toggling the class
+    toggleBtn.addEventListener('click', () => {
+      if (box.classList.contains('spin')) {
+        box.classList.remove('spin');
+        toggleBtn.textContent = 'Play';
+      } else {
+        box.classList.add('spin');
+        toggleBtn.textContent = 'Pause';
+      }
+    });
+
+    // Change animation speed by updating the CSS variable
+    function updateSpeed() {
+      const val = parseFloat(speed.value).toFixed(2);
+      document.documentElement.style.setProperty('--duration', val + 's');
+      speedLabel.textContent = val + 's';
+    }
+    speed.addEventListener('input', updateSpeed);
+    updateSpeed();
+
+    // Direction: use inline style to override animation-direction
+    direction.addEventListener('change', (e) => {
+      box.style.animationDirection = e.target.value;
+    });
+
+    // Size controls: update the CSS variable
+    function setSize(px) {
+      document.documentElement.style.setProperty('--size', px + 'px');
+    }
+    function getSize() {
+      return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--size'));
+    }
+    bigger.addEventListener('click', () => setSize(Math.min(getSize() + 20, 360)));
+    smaller.addEventListener('click', () => setSize(Math.max(getSize() - 20, 60)));
+  </script>
+</body>
+</html>
