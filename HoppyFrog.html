@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hoppy Frog Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(to top, #a8e6cf, #dcedc1);
+      overflow: hidden;
+    }
+    h1 { margin: 10px; text-align: center; }
+    #game {
+      position: relative;
+      width: 90vw;
+      max-width: 400px;
+      height: 500px;
+      border: 2px solid #333;
+      background: #87ceeb;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    #frog {
+      position: absolute;
+      bottom: 50%;
+      left: 50px;
+      font-size: 40px;
+    }
+    .pipe {
+      position: absolute;
+      width: 60px;
+      background: green;
+      left: 100%;
+      animation: movePipe 4s linear infinite;
+    }
+    .pipe.top { top: 0; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+    .pipe.bottom { bottom: 0; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+
+    @keyframes movePipe {
+      from { left: 100%; }
+      to { left: -60px; }
+    }
+
+    #message { margin-top: 10px; font-weight: bold; text-align: center; }
+    #jumpBtn {
+      margin-top: 10px;
+      font-size: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #388e3c;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐸 Hoppy Frog</h1>
+  <p>Press spacebar or tap the button to hop!</p>
+  <div id="game">
+    <div id="frog">🐸</div>
+  </div>
+  <div id="message"></div>
+  <button id="jumpBtn">⬆️ Hop</button>
+
+  <script>
+    const game = document.getElementById('game');
+    const frog = document.getElementById('frog');
+    const message = document.getElementById('message');
+    const jumpBtn = document.getElementById('jumpBtn');
+    let frogY = game.clientHeight / 2;
+    let gravity = 2;
+    let velocity = 0;
+    let gameOver = false;
+
+    // Frog jump function
+    function jump() {
+      if (gameOver) return;
+      velocity = -20;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') jump();
+    });
+    jumpBtn.addEventListener('click', jump);
+    game.addEventListener('click', jump); // Tap anywhere on the game
+
+    // Create pipes
+    function createPipes() {
+      if (gameOver) return;
+      const gap = 120;
+      const pipeHeight = Math.floor(Math.random() * (game.clientHeight - gap - 50)) + 20;
+
+      const topPipe = document.createElement('div');
+      topPipe.classList.add('pipe', 'top');
+      topPipe.style.height = pipeHeight + 'px';
+      game.appendChild(topPipe);
+
+      const bottomPipe = document.createElement('div');
+      bottomPipe.classList.add('pipe', 'bottom');
+      bottomPipe.style.height = (game.clientHeight - pipeHeight - gap) + 'px';
+      game.appendChild(bottomPipe);
+
+      setTimeout(() => {
+        topPipe.remove();
+        bottomPipe.remove();
+      }, 4000);
+    }
+    setInterval(createPipes, 2500);
+
+    // Game loop
+    function gameLoop() {
+      if (gameOver) return;
+      velocity += gravity * 0.5;
+      frogY += velocity * 0.5;
+
+      if (frogY < 0) frogY = 0;
+      if (frogY > game.clientHeight - 40) {
+        frogY = game.clientHeight - 40;
+        endGame();
+      }
+
+      frog.style.bottom = frogY + 'px';
+
+      // Collision detection
+      const frogRect = frog.getBoundingClientRect();
+      const pipes = document.querySelectorAll('.pipe');
+      pipes.forEach(pipe => {
+        const pipeRect = pipe.getBoundingClientRect();
+        if (
+          frogRect.left < pipeRect.right &&
+          frogRect.right > pipeRect.left &&
+          frogRect.top < pipeRect.bottom &&
+          frogRect.bottom > pipeRect.top
+        ) {
+          endGame();
+        }
+      });
+
+      requestAnimationFrame(gameLoop);
+    }
+    gameLoop();
+
+    function endGame() {
+      gameOver = true;
+      message.textContent = '💀 Game Over! Refresh to play again.';
+      document.querySelectorAll('.pipe').forEach(pipe => pipe.style.animationPlayState = 'paused');
+    }
+  </script>
+</body>
+</html>
