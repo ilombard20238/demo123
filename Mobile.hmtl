@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flying Bird Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #e0f7fa;
+    }
+    h1 { margin-bottom: 10px; text-align: center; }
+    #game {
+      position: relative;
+      width: 90vw;
+      max-width: 600px;
+      height: 200px;
+      border: 2px solid #333;
+      background: #fff;
+      overflow: hidden;
+    }
+    #bird {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      font-size: 40px;
+    }
+    .obstacle {
+      position: absolute;
+      bottom: 10px;
+      left: 100%;
+      font-size: 40px;
+      animation: moveObstacle 4s linear infinite;
+    }
+    @keyframes moveObstacle {
+      from { left: 100%; }
+      to { left: -40px; }
+    }
+    #message {
+      margin-top: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+    #jumpBtn {
+      margin-top: 15px;
+      font-size: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #00796b;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐦 Flying Bird Game</h1>
+  <p>Press spacebar or tap the button to jump!</p>
+  <div id="game">
+    <div id="bird">🐦</div>
+    <div class="obstacle" style="animation-delay: 0s">🌵</div>
+    <div class="obstacle" style="animation-delay: 2s">🌴</div>
+    <div class="obstacle" style="animation-delay: 4s">🌳</div>
+  </div>
+  <div id="message"></div>
+  <button id="jumpBtn">⬆️ Jump</button>
+
+  <script>
+    const bird = document.getElementById('bird');
+    const obstacles = document.querySelectorAll('.obstacle');
+    const message = document.getElementById('message');
+    const jumpBtn = document.getElementById('jumpBtn');
+    let jumping = false;
+    let gameOver = false;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !jumping && !gameOver) {
+        jump();
+      }
+    });
+
+    jumpBtn.addEventListener('click', () => {
+      if (!jumping && !gameOver) {
+        jump();
+      }
+    });
+
+    function jump() {
+      jumping = true;
+      let up = 0;
+      const jumpInterval = setInterval(() => {
+        if (up >= 100) {
+          clearInterval(jumpInterval);
+          const downInterval = setInterval(() => {
+            if (up <= 0) {
+              clearInterval(downInterval);
+              jumping = false;
+            }
+            bird.style.bottom = 10 + up + 'px';
+            up -= 5;
+          }, 20);
+        }
+        bird.style.bottom = 10 + up + 'px';
+        up += 5;
+      }, 20);
+    }
+
+    const checkCollision = setInterval(() => {
+      if (gameOver) return;
+      const birdRect = bird.getBoundingClientRect();
+      obstacles.forEach(obs => {
+        const obsRect = obs.getBoundingClientRect();
+        if (
+          birdRect.left < obsRect.right &&
+          birdRect.right > obsRect.left &&
+          birdRect.bottom > obsRect.top
+        ) {
+          message.textContent = '💀 Game Over! Refresh to try again.';
+          obstacles.forEach(o => o.style.animationPlayState = 'paused');
+          gameOver = true;
+        }
+      });
+    }, 20);
+  </script>
+</body>
+</html>
