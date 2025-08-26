@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Running Dog Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #e0f7fa;
+    }
+    h1 { margin-bottom: 10px; }
+    #game {
+      position: relative;
+      width: 600px;
+      height: 200px;
+      border: 2px solid #333;
+      background: #fff;
+      overflow: hidden;
+    }
+    #dog {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      font-size: 40px;
+    }
+    .obstacle {
+      position: absolute;
+      bottom: 10px;
+      right: -40px;
+      font-size: 40px;
+      animation: moveObstacle 4s linear infinite;
+    }
+    @keyframes moveObstacle {
+      from { right: -40px; }
+      to { right: 640px; }
+    }
+    #message {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐶 Running Dog Game</h1>
+  <p>Press the spacebar to jump over obstacles!</p>
+  <div id="game">
+    <div id="dog">🐕</div>
+    <div class="obstacle">🌵</div>
+  </div>
+  <div id="message"></div>
+
+  <script>
+    const dog = document.getElementById('dog');
+    const obstacle = document.querySelector('.obstacle');
+    const message = document.getElementById('message');
+    let jumping = false;
+    let gameOver = false;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !jumping && !gameOver) {
+        jump();
+      }
+    });
+
+    function jump() {
+      jumping = true;
+      let up = 0;
+      const jumpInterval = setInterval(() => {
+        if (up >= 100) {
+          clearInterval(jumpInterval);
+          const downInterval = setInterval(() => {
+            if (up <= 0) {
+              clearInterval(downInterval);
+              jumping = false;
+            }
+            dog.style.bottom = 10 + up + 'px';
+            up -= 5;
+          }, 20);
+        }
+        dog.style.bottom = 10 + up + 'px';
+        up += 5;
+      }, 20);
+    }
+
+    const checkCollision = setInterval(() => {
+      if (gameOver) return;
+      const dogRect = dog.getBoundingClientRect();
+      const obsRect = obstacle.getBoundingClientRect();
+
+      if (
+        dogRect.left < obsRect.right &&
+        dogRect.right > obsRect.left &&
+        dogRect.bottom > obsRect.top
+      ) {
+        message.textContent = '💀 Game Over! Refresh to try again.';
+        obstacle.style.animationPlayState = 'paused';
+        gameOver = true;
+      }
+    }, 20);
+  </script>
+</body>
+</html>
