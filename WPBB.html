@@ -315,7 +315,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/croissant.jpg" target="_blank">
-          <img src="images/croissant.jpg" alt="Croissant">
+          <img src="images/croissant.jpg" alt="Croissant" data-desc="Flaky, buttery, and golden brown.">
         <h3>Croissant</h3>
         <p>Flaky, buttery, and golden brown.</p>
         <p><strong>$2.00</strong></p>
@@ -323,7 +323,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/cinnamon-vanilla.jpg" target="_blank">
-          <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha">
+          <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha" data-desc="Soft bread with Cinnamon topping, if you like a sugary treat this is for you.">
         <h3>Cinnamon Concha</h3>
         <p>Soft with sweet Cinnamon topping.</p>
         <p><strong>$2.00</strong></p>
@@ -331,7 +331,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/chocolate-concha.jpg" target="_blank">
-          <img src="images/chocolate-concha.jpg" alt="Chocolate Concha">
+          <img src="images/chocolate-concha.jpg" alt="Chocolate Concha" data-desc="Soft bread with chocolate topping for the chocolate lovers!.">
         <h3>Chocolate Concha</h3>
         <p>Soft with sweet Chocolate topping.</p>
         <p><strong>$2.00</strong></p>
@@ -339,7 +339,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/vanilla1.jpg" target="_blank">
-          <img src="images/vanilla1.jpg" alt="Vanilla Concha">
+          <img src="images/vanilla1.jpg" alt="Vanilla Concha" data-desc="soft bread with vanilla topping, simple but delicious.">
         <h3>Vanilla Conchas</h3>
         <p>Soft with sweet vanilla topping.</p>
         <p><strong>$2.00</strong></p>
@@ -347,7 +347,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/Banana Bread.jpg" target="_blank">
-          <img src="images/Banana Bread.jpg" alt="Banana Bread">
+          <img src="images/Banana Bread.jpg" alt="Banana Bread" data-desc="Family size Loaf of Banana Bread made with walnuts and much love.">
         <h3>Banana Bread</h3>
         <p>Banana Bread loaf, morning breakfast for everyone!</p>
         <p><strong>$10.00</strong></p>
@@ -355,6 +355,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/banana-bread-mini.jpg" target="_blank">
+          <img src="images/banana-bread-mini.jpg" alt="Mini Banana Bread" data-desc="Bite size Banana Bread made with walnuts for a quick breakfast on the way to work!">
         <h3>Banana Bread Mini</h3>
         <p>Banana Bread mini loaf super great for a quick morning bite!</p>
         <p><strong>$2.00</strong></p>
@@ -362,7 +363,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/guava-pastry.jpg" target="_blank">
-          <img src="images/guava-pastry.jpg" alt="Guava Pastry">
+          <img src="images/guava-pastry.jpg" alt="Guava Pastry" data-desc="a flaky sweet treat Pastry for your sweet tooth!">
         <h3>Guava Pastry</h3>
         <p>Sweet flaky guava filled pastry.</p>
         <p><strong>$2.00</strong></p>
@@ -370,7 +371,7 @@ footer {
 
       <div class="menu-item">
         <a href="images/quesito.jpg" target="_blank">
-          <img src="images/quesito.jpg" alt="Quesito">
+          <img src="images/quesito.jpg" alt="Quesito" data-desc="Cream cheese pilled pastry with a crunch, Fresh right out the oven!">
         <h3>Quesito</h3>
         <p>Creamy cheese-filled pastry with a nice crunch.</p>
         <p><strong>$2.00</strong></p>
@@ -397,11 +398,11 @@ footer {
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
-  <div id="lightbox" class="lightbox">
-  <div class="lightbox-content">
-    <span class="close-btn">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-    <p id="lightbox-desc"></p>
+<div class="lightbox-content">
+  <span class="close-btn">&times;</span>
+  <h3 id="lightbox-title"></h3> <!-- new title spot -->
+  <img id="lightbox-img" src="" alt="">
+  <p id="lightbox-desc"></p>
   </div>
 </div>
 
@@ -415,8 +416,8 @@ footer {
   document.querySelectorAll(".menu-item img").forEach(img => {
     img.addEventListener("click", () => {
       lightbox.style.display = "flex";
-      lightboxImg.src = img.src; // show clicked image
-      lightboxDesc.textContent = img.alt; // use alt as description
+      lightboxImg.src = img.src;           // show clicked image
+      lightboxDesc.textContent = img.dataset.desc || ""; // use data-desc as description
     });
   });
 
