@@ -1,0 +1,78 @@
+<section id="menu" class="menu">
+  <h2>Our Menu</h2>
+  <div class="menu-items">
+
+    <div class="menu-item">
+      <a href="images/croissant.jpg" target="_blank">
+        <img src="images/croissant.jpg" alt="Croissant">
+      </a>
+      <h3>Croissant</h3>
+      <p>Flaky, buttery, and golden brown.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/cinnamon-concha.jpg" target="_blank">
+        <img src="images/cinnamon-concha.jpg" alt="Cinnamon Concha">
+      </a>
+      <h3>Cinnamon Concha</h3>
+      <p>Soft with sweet Cinnamon topping.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/chocolate-concha.jpg" target="_blank">
+        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha">
+      </a>
+      <h3>Chocolate Concha</h3>
+      <p>Soft with sweet Chocolate topping.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/vanilla-concha.jpg" target="_blank">
+        <img src="images/vanilla-concha.jpg" alt="Vanilla Concha">
+      </a>
+      <h3>Conchas</h3>
+      <p>Soft with sweet vanilla topping.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/banana-bread.jpg" target="_blank">
+        <img src="images/banana-bread.jpg" alt="Banana Bread">
+      </a>
+      <h3>Banana Bread</h3>
+      <p>Banana Bread loaf, morning breakfast for everyone!</p>
+      <p><strong>$10.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/banana-bread-mini.jpg" target="_blank">
+        <img src="images/banana-bread-mini.jpg" alt="Banana Bread Mini">
+      </a>
+      <h3>Banana Bread Mini</h3>
+      <p>Banana Bread mini loaf super great for a quick morning bite!</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/guava-pastry.jpg" target="_blank">
+        <img src="images/guava-pastry.jpg" alt="Guava Pastry">
+      </a>
+      <h3>Guava Pastry</h3>
+      <p>Sweet flaky guava filled pastry.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+    <div class="menu-item">
+      <a href="images/quesito.jpg" target="_blank">
+        <img src="images/quesito.jpg" alt="Quesito">
+      </a>
+      <h3>Quesito</h3>
+      <p>Creamy cheese-filled pastry with a nice crunch.</p>
+      <p><strong>$2.00</strong></p>
+    </div>
+
+  </div>
+</section>
