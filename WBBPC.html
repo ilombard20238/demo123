@@ -70,7 +70,7 @@
       border: 1px solid #eee;
       border-radius: 10px;
       padding: 1rem;
-      width: 200px;
+      width: 220px;
       box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
       text-align: center;
     }
@@ -82,6 +82,22 @@
       margin-bottom: 10px;
       cursor: zoom-in;    /* hint it's clickable */
     }
+    .menu-item input {
+      width: 50px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .menu-item button {
+      display: block;
+      margin: 8px auto 0;
+      padding: 6px 12px;
+      background: #a1887f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .menu-item button:hover { background: #6d4c41; }
 
     /* ===== Footer ===== */
     footer {
@@ -91,6 +107,28 @@
       margin-top: 2rem;
       color: #fff8f0;
     }
+
+    /* ===== Cart ===== */
+    .cart {
+      background: #fffaf5;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 2rem auto;
+      max-width: 400px;
+      text-align: left;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    .cart h3 { margin-top: 0; }
+    .cart button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #send-order { background: #4caf50; color: white; }
+    #clear-order { background: #b0bec5; }
 
     /* ===== Lightbox ===== */
     .lightbox {
@@ -159,6 +197,7 @@
   <section id="menu" class="menu">
     <h2>Our Menu</h2>
     <div class="menu-items">
+      <!-- Example item -->
       <div class="menu-item">
         <img src="images/croissant.jpg" alt="Croissant"
              data-title="Croissant"
@@ -166,6 +205,8 @@
         <h3>Croissant</h3>
         <p>Flaky, buttery, and golden brown.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Croissant" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -175,6 +216,8 @@
         <h3>Cinnamon Concha</h3>
         <p>Soft with sweet Cinnamon topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Cinnamon Concha" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -184,6 +227,8 @@
         <h3>Chocolate Concha</h3>
         <p>Soft with sweet Chocolate topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Chocolate Concha" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -193,6 +238,8 @@
         <h3>Vanilla Conchas</h3>
         <p>Soft with sweet vanilla topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Vanilla Concha" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -202,6 +249,8 @@
         <h3>Banana Bread</h3>
         <p>Banana Bread loaf, morning breakfast for everyone!</p>
         <p><strong>$10.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Banana Bread" data-price="10.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -211,6 +260,8 @@
         <h3>Banana Bread Mini</h3>
         <p>Banana Bread mini loaf super great for a quick morning bite!</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Banana Bread Mini" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -220,6 +271,8 @@
         <h3>Guava Pastry</h3>
         <p>Sweet flaky guava filled pastry.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Guava Pastry" data-price="2.00">Add to Order</button>
       </div>
 
       <div class="menu-item">
@@ -229,6 +282,8 @@
         <h3>Quesito</h3>
         <p>Creamy cheese-filled pastry with a nice crunch.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Quesito" data-price="2.00">Add to Order</button>
       </div>
     </div>
   </section>
@@ -251,6 +306,15 @@
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
+  <!-- CART -->
+  <div class="cart" id="cart">
+    <h3>Your Order</h3>
+    <ul id="order-list"></ul>
+    <p><strong>Total: $<span id="order-total">0.00</span></strong></p>
+    <button id="send-order">Send Order via WhatsApp</button>
+    <button id="clear-order">Clear Order</button>
+  </div>
+
   <!-- ===== Lightbox Markup ===== -->
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
@@ -261,44 +325,76 @@
     </div>
   </div>
 
+  <!-- ===== JavaScript ===== -->
   <script>
+    /* ===== Lightbox ===== */
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const lightboxDesc = document.getElementById("lightbox-desc");
     const lightboxTitle = document.getElementById("lightbox-title");
     const closeBtn = document.querySelector(".close-btn");
 
-    // Open lightbox on image click
     document.querySelectorAll(".menu-item img").forEach(img => {
       img.addEventListener("click", () => {
         lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || "";
         lightboxTitle.textContent = img.dataset.title || img.alt || "";
         lightboxDesc.textContent = img.dataset.desc || "";
         lightbox.style.display = "flex";
-        document.body.style.overflow = "hidden"; // prevent background scroll
+        document.body.style.overflow = "hidden";
       });
     });
 
-    // Close handlers
     function closeLightbox() {
       lightbox.style.display = "none";
-      document.body.style.overflow = ""; // restore scroll
+      document.body.style.overflow = "";
       lightboxImg.src = "";
     }
-
     closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
 
-    // Click outside content to close
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) closeLightbox();
+    /* ===== Cart ===== */
+    let order = [];
+    let total = 0;
+
+    const orderList = document.getElementById("order-list");
+    const orderTotal = document.getElementById("order-total");
+    const phoneNumber = "15615021743"; // bakery number
+
+    document.querySelectorAll(".add-to-order").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let item = btn.dataset.item;
+        let price = parseFloat(btn.dataset.price);
+        let qty = parseInt(btn.previousElementSibling.value);
+
+        if (qty > 0) {
+          let itemText = `${item} x${qty} - $${(price * qty).toFixed(2)}`;
+          order.push(itemText);
+          total += price * qty;
+
+          let li = document.createElement("li");
+          li.textContent = itemText;
+          orderList.appendChild(li);
+          orderTotal.textContent = total.toFixed(2);
+        }
+      });
     });
 
-    // ESC to close
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightbox.style.display === "flex") {
-        closeLightbox();
+    document.getElementById("send-order").addEventListener("click", () => {
+      if (order.length === 0) {
+        alert("Your order is empty!");
+        return;
       }
+      let message = "Hello! I'd like to order:\n\n" + order.join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+      let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+
+    document.getElementById("clear-order").addEventListener("click", () => {
+      order = [];
+      total = 0;
+      orderList.innerHTML = "";
+      orderTotal.textContent = "0.00";
     });
   </script>
 </body>
