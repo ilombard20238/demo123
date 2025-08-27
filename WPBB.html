@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>West Palm Conchas</title>
   <style>
-  body {
+ body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background: #fdf6e3; /* soft cream background */
@@ -38,6 +38,79 @@ nav a {
 nav a:hover {
   color: #ffe0b2; /* pastel peach hover */
 }
+
+/* --- HERO SECTION --- */
+.hero {
+  background: url("images/bakery-hero.jpg") center/cover no-repeat;
+  color: #fff8f0;
+  padding: 100px 20px;
+  text-align: center;
+  background-blend-mode: multiply;
+  background-color: rgba(161, 136, 127, 0.6); /* pastel brown overlay */
+}
+.hero h2 {
+  font-size: 3rem;
+  margin: 0 0 10px;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #d7ccc8; /* soft beige */
+  color: #4e342e; /* mocha text */
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #a1887f; /* pastel brown hover */
+  color: #fff8f0;
+}
+
+.menu {
+  padding: 2rem;
+  text-align: center;
+}
+.menu h2 {
+  color: #6d4c41; /* rich cocoa */
+}
+.menu-items {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.menu-item {
+  background: #fffaf5; /* off-white card */
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 200px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+/* --- NEW: Make all menu images same size --- */
+.menu-item img {
+  width: 100%;
+  height: 160px;        /* fixed height */
+  object-fit: cover;    /* crops without stretching */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+footer {
+  background: #a1887f;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: #fff8f0;
+}
+
 
 /* --- HERO SECTION --- */
 .hero {
