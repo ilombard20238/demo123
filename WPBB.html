@@ -39,6 +39,48 @@ nav a:hover {
   color: #ffe0b2; /* pastel peach hover */
 }
 
+/* --- Lightbox Styles --- */
+.lightbox {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8); /* dark overlay */
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.lightbox-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.lightbox-content p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #4e342e;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+    
 /* --- HERO SECTION --- */
 .hero {
   background: url("images/bakery-hero.jpg") center/cover no-repeat;
@@ -361,5 +403,43 @@ footer {
   <footer>
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
+
+  <div id="lightbox" class="lightbox">
+  <div class="lightbox-content">
+    <span class="close-btn">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-desc"></p>
+  </div>
+</div>
+
+  <script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxDesc = document.getElementById("lightbox-desc");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // For each menu image
+  document.querySelectorAll(".menu-item img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = img.src; // show clicked image
+      lightboxDesc.textContent = img.alt; // use alt as description
+    });
+  });
+
+  // Close button
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+
+  // Close on background click
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+    }
+  });
+</script>
+
+  
 </body>
 </html>
