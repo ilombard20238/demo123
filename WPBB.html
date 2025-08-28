@@ -5,245 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>West Palm Conchas</title>
   <style>
- body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background: #fdf6e3; /* soft cream background */
-  color: #4e342e; /* dark mocha text */
-}
+    /* ===== Base / Theme ===== */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fdf6e3; /* soft cream */
+      color: #4e342e;      /* dark mocha */
+    }
+    header {
+      background: #a1887f; /* warm pastel brown */
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      color: #fff8f0;      /* light cream text */
+    }
+    nav {
+      margin: 1rem 0;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fdf6e3;
+      font-weight: bold;
+    }
+    nav a:hover { color: #ffe0b2; }
 
-header {
-  background: #a1887f; /* warm pastel brown */
-  padding: 1rem;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
-  color: #fff8f0; /* light cream text */
-}
-
-nav {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fdf6e3; /* cream links */
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #ffe0b2; /* pastel peach hover */
-}
-
-/* --- Lightbox Styles --- */
-.lightbox {
-  display: none; /* hidden by default */
-  position: fixed;
-  z-index: 1000;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8); /* dark overlay */
-  justify-content: center;
-  align-items: center;
-}
-
-.lightbox-content {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 500px;
-  text-align: center;
-}
-
-.lightbox-content img {
-  max-width: 90%;   /* don’t go wider than screen */
-  max-height: 70vh; /* don’t go taller than 70% of screen */
-  border-radius: 10px;
-  object-fit: contain; /* keep proportions, no stretching */
-}
-
-
-.lightbox-content p {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #4e342e;
-}
-
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-}
-
-    
-/* --- HERO SECTION --- */
-.hero {
-  background: url("images/bakery-hero.jpg") center/cover no-repeat;
-  color: #fff8f0;
-  padding: 100px 20px;
-  text-align: center;
-  background-blend-mode: multiply;
-  background-color: rgba(161, 136, 127, 0.6); /* pastel brown overlay */
-}
-.hero h2 {
-  font-size: 3rem;
-  margin: 0 0 10px;
-}
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-.btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background: #d7ccc8; /* soft beige */
-  color: #4e342e; /* mocha text */
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 30px;
-  transition: background 0.3s;
-}
-.btn:hover {
-  background: #a1887f; /* pastel brown hover */
-  color: #fff8f0;
-}
-
-.menu {
-  padding: 2rem;
-  text-align: center;
-}
-.menu h2 {
-  color: #6d4c41; /* rich cocoa */
-}
-.menu-items {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.menu-item {
-  background: #fffaf5; /* off-white card */
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 1rem;
-  width: 200px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-/* --- NEW: Make all menu images same size --- */
-.menu-item img {
-  width: 100%;
-  height: 160px;        /* fixed height */
-  object-fit: cover;    /* crops without stretching */
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-footer {
-  background: #a1887f;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-  color: #fff8f0;
-}
-
-
-/* --- HERO SECTION --- */
-.hero {
-  background: url("images/bakery-hero.jpg") center/cover no-repeat;
-  color: #fff8f0;
-  padding: 100px 20px;
-  text-align: center;
-  background-blend-mode: multiply;
-  background-color: rgba(161, 136, 127, 0.6); /* pastel brown overlay */
-}
-.hero h2 {
-  font-size: 3rem;
-  margin: 0 0 10px;
-}
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-.btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background: #d7ccc8; /* soft beige */
-  color: #4e342e; /* mocha text */
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 30px;
-  transition: background 0.3s;
-}
-.btn:hover {
-  background: #a1887f; /* pastel brown hover */
-  color: #fff8f0;
-}
-
-.menu {
-  padding: 2rem;
-  text-align: center;
-}
-.menu h2 {
-  color: #6d4c41; /* rich cocoa */
-}
-.menu-items {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.menu-item {
-  background: #fffa
-
-
-    /* --- HERO SECTION --- */
+    /* ===== Hero ===== */
     .hero {
       background: url("images/bakery-hero.jpg") center/cover no-repeat;
-      color: white;
+      color: #fff8f0;
       padding: 100px 20px;
       text-align: center;
       background-blend-mode: multiply;
-      background-color: rgba(23, 74, 107, 0.6); /* blue overlay */
+      background-color: rgba(161, 136, 127, 0.6); /* pastel brown overlay */
     }
-    .hero h2 {
-      font-size: 3rem;
-      margin: 0 0 10px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
+    .hero h2 { font-size: 3rem; margin: 0 0 10px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 20px; }
     .btn {
       display: inline-block;
       padding: 12px 25px;
-      background: #2c7fb8;
-      color: white;
+      background: #d7ccc8; /* soft beige */
+      color: #4e342e;
       text-decoration: none;
       font-weight: bold;
       border-radius: 30px;
       transition: background 0.3s;
     }
-    .btn:hover {
-      background: #174a6b;
-    }
+    .btn:hover { background: #a1887f; color: #fff8f0; }
 
-    /* --- MENU SECTION --- */
-    .menu {
-      padding: 2rem;
-      text-align: center;
-    }
-    .menu h2 {
-      color: #1f5c85;
-    }
+    /* ===== Menu cards ===== */
+    .menu { padding: 2rem; text-align: center; }
+    .menu h2 { color: #6d4c41; }
     .menu-items {
       display: flex;
       justify-content: center;
@@ -251,43 +67,163 @@ footer {
       flex-wrap: wrap;
     }
     .menu-item {
-      background: white;
+      background: #fffaf5;  /* off-white card */
       border: 1px solid #eee;
       border-radius: 10px;
       padding: 1rem;
       width: 220px;
       box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .menu-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 4px 6px 18px rgba(0,0,0,0.15);
+      text-align: center;
     }
     .menu-item img {
       width: 100%;
-      height: 160px;
-      object-fit: cover;
+      height: 160px;      /* make all images same height */
+      object-fit: cover;  /* crop nicely, no stretching */
       border-radius: 10px;
       margin-bottom: 10px;
+      cursor: zoom-in;    /* hint it's clickable */
     }
-    .menu-item h3 {
-      margin: 0.5rem 0;
-      color: #174a6b;
+    .menu-item input[type="number"] {
+      width: 60px;
+      margin-top: 6px;
+      padding: 4px 6px;
+      text-align: center;
+      border: 1px solid #d7ccc8;
+      border-radius: 6px;
     }
-    .menu-item p {
-     width: 100%;
-  height: 160px;        /* fixed height for all pictures */
-  object-fit: cover;    /* crops the image to fit without distortion */
-  border-radius: 10px;
-  margin-bottom: 10px;
+    .menu-item button.add-to-order {
+      display: block;
+      margin: 10px auto 0;
+      padding: 8px 12px;
+      background: #a1887f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform .1s ease;
     }
-    
+    .menu-item button.add-to-order:hover { background: #6d4c41; }
+    .menu-item button.add-to-order:active { transform: scale(0.98); }
+
+    /* ===== Footer ===== */
     footer {
-      background: #174a6b;
+      background: #a1887f;
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
+      color: #fff8f0;
+    }
+
+    /* ===== Cart ===== */
+    .cart {
+      background: #fffaf5;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 2rem auto;
+      max-width: 420px;
+      text-align: left;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .cart h3 { margin: 0 0 .5rem; }
+    .cart ul { padding-left: 1rem; }
+    .cart li { margin: 4px 0; }
+    .cart button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #send-order { background: #4caf50; color: white; }
+    #clear-order { background: #b0bec5; }
+
+    /* Cart badge */
+    .cart-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff5722;
       color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== Lightbox ===== */
+    .lightbox {
+      display: none;           /* hidden by default */
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox-content {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    .lightbox-content h3 {
+      margin: 0 0 10px;
+      color: #4e342e;
+    }
+    .lightbox-content img {
+      max-width: 90%;
+      max-height: 70vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+    .lightbox-content p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #4e342e;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 2rem;
+      color: #333;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ✨ Sparkle / Glow effect */
+    .add-to-order.sparkle {
+      position: relative;
+      animation: sparkle-glow 0.6s ease;
+    }
+    @keyframes sparkle-glow {
+      0%   { box-shadow: 0 0 0px #ffd700; transform: scale(1); }
+      25%  { box-shadow: 0 0 20px #ffd700; transform: scale(1.1); }
+      50%  { box-shadow: 0 0 30px #ffcc00; transform: scale(1.05); }
+      75%  { box-shadow: 0 0 20px #ffd700; transform: scale(1.1); }
+      100% { box-shadow: 0 0 0px #ffd700; transform: scale(1); }
+    }
+
+    /* 🛒 Cart shake effect */
+    .cart.shake {
+      animation: cart-shake 0.6s ease;
+    }
+    @keyframes cart-shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
     }
   </style>
 </head>
@@ -312,71 +248,101 @@ footer {
   <section id="menu" class="menu">
     <h2>Our Menu</h2>
     <div class="menu-items">
-
+      <!-- Croissant -->
       <div class="menu-item">
-        <a href="images/croissant.jpg" target="_blank">
-          <img src="images/croissant.jpg" alt="Croissant" data-desc="Flaky, buttery, and golden brown.">
+        <img src="images/croissant.jpg" alt="Croissant"
+             data-title="Croissant"
+             data-desc="Flaky, buttery, and golden brown.">
         <h3>Croissant</h3>
         <p>Flaky, buttery, and golden brown.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Croissant quantity">
+        <button class="add-to-order" data-item="Croissant" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Cinnamon Concha -->
       <div class="menu-item">
-        <a href="images/cinnamon-vanilla.jpg" target="_blank">
-          <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha" data-desc="Soft bread with Cinnamon topping, if you like a sugary treat this is for you.">
+        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha"
+             data-title="Cinnamon Concha"
+             data-desc="Soft bread with cinnamon topping — a perfect sugary treat.">
         <h3>Cinnamon Concha</h3>
         <p>Soft with sweet Cinnamon topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Cinnamon Concha quantity">
+        <button class="add-to-order" data-item="Cinnamon Concha" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Chocolate Concha -->
       <div class="menu-item">
-        <a href="images/chocolate-concha.jpg" target="_blank">
-          <img src="images/chocolate-concha.jpg" alt="Chocolate Concha" data-desc="Soft bread with chocolate topping for the chocolate lovers!.">
+        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha"
+             data-title="Chocolate Concha"
+             data-desc="Soft bread with rich chocolate topping for chocolate lovers.">
         <h3>Chocolate Concha</h3>
         <p>Soft with sweet Chocolate topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Chocolate Concha quantity">
+        <button class="add-to-order" data-item="Chocolate Concha" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Vanilla Concha -->
       <div class="menu-item">
-        <a href="images/vanilla1.jpg" target="_blank">
-          <img src="images/vanilla1.jpg" alt="Vanilla Concha" data-desc="soft bread with vanilla topping, simple but delicious.">
-        <h3>Vanilla Conchas</h3>
+        <img src="images/vanilla1.jpg" alt="Vanilla Concha"
+             data-title="Vanilla Concha"
+             data-desc="Soft bread with vanilla topping — simple and delicious.">
+        <h3>Vanilla Concha</h3>
         <p>Soft with sweet vanilla topping.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Vanilla Concha quantity">
+        <button class="add-to-order" data-item="Vanilla Concha" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Banana Bread -->
       <div class="menu-item">
-        <a href="images/Banana Bread.jpg" target="_blank">
-          <img src="images/Banana Bread.jpg" alt="Banana Bread" data-desc="Family size Loaf of Banana Bread made with walnuts and much love.">
+        <img src="images/Banana Bread.jpg" alt="Banana Bread"
+             data-title="Banana Bread"
+             data-desc="Family-size loaf with walnuts, baked with love.">
         <h3>Banana Bread</h3>
         <p>Banana Bread loaf, morning breakfast for everyone!</p>
         <p><strong>$10.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Banana Bread quantity">
+        <button class="add-to-order" data-item="Banana Bread" data-price="10.00">Add to Order</button>
       </div>
 
+      <!-- Banana Bread Mini -->
       <div class="menu-item">
-        <a href="images/banana-bread-mini.jpg" target="_blank">
-          <img src="images/banana-bread-mini.jpg" alt="Mini Banana Bread" data-desc="Bite size Banana Bread made with walnuts for a quick breakfast on the way to work!">
+        <img src="images/banana-bread-mini.jpg" alt="Banana Bread Mini"
+             data-title="Banana Bread Mini"
+             data-desc="Bite-size banana bread with walnuts — perfect on the go.">
         <h3>Banana Bread Mini</h3>
         <p>Banana Bread mini loaf super great for a quick morning bite!</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Banana Bread Mini quantity">
+        <button class="add-to-order" data-item="Banana Bread Mini" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Guava Pastry -->
       <div class="menu-item">
-        <a href="images/guava-pastry.jpg" target="_blank">
-          <img src="images/guava-pastry.jpg" alt="Guava Pastry" data-desc="a flaky sweet treat Pastry for your sweet tooth!">
+        <img src="images/guava-pastry.jpg" alt="Guava Pastry"
+             data-title="Guava Pastry"
+             data-desc="Sweet, flaky pastry filled with guava.">
         <h3>Guava Pastry</h3>
         <p>Sweet flaky guava filled pastry.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Guava Pastry quantity">
+        <button class="add-to-order" data-item="Guava Pastry" data-price="2.00">Add to Order</button>
       </div>
 
+      <!-- Quesito -->
       <div class="menu-item">
-        <a href="images/quesito.jpg" target="_blank">
-          <img src="images/quesito.jpg" alt="Quesito" data-desc="Cream cheese pilled pastry with a crunch, Fresh right out the oven!">
+        <img src="images/quesito.jpg" alt="Quesito"
+             data-title="Quesito"
+             data-desc="Creamy, cheese-filled pastry with a satisfying crunch.">
         <h3>Quesito</h3>
         <p>Creamy cheese-filled pastry with a nice crunch.</p>
         <p><strong>$2.00</strong></p>
+        <input type="number" value="1" min="0" step="1" aria-label="Quesito quantity">
+        <button class="add-to-order" data-item="Quesito" data-price="2.00">Add to Order</button>
       </div>
-
     </div>
   </section>
 
@@ -390,7 +356,7 @@ footer {
   <section id="contact" class="menu">
     <h2>Contact Us</h2>
     <p>Email: luciaburgos1@yahoo.com</p>
-    <p>Phone: (561)502-1743</p>
+    <p>Phone: (561)727-6649</p>
     <p>Visit us at 567 Jenning Ave, Lake Worth, FL</p>
   </section>
 
@@ -398,42 +364,126 @@ footer {
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
-<div class="lightbox-content">
-  <span class="close-btn">&times;</span>
-  <h3 id="lightbox-title"></h3> <!-- new title spot -->
-  <img id="lightbox-img" src="" alt="">
-  <p id="lightbox-desc"></p>
+  <!-- CART -->
+  <div class="cart" id="cart">
+    <h3>Your Order <span class="cart-badge" id="cart-badge">0</span></h3>
+    <ul id="order-list"></ul>
+    <p><strong>Total: $<span id="order-total">0.00</span></strong></p>
+    <button id="send-order">Send Order via WhatsApp</button>
+    <button id="clear-order">Clear Order</button>
   </div>
-</div>
 
+  <!-- ===== Lightbox Markup ===== -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+      <span class="close-btn" aria-label="Close">&times;</span>
+      <h3 id="lightbox-title"></h3>
+      <img id="lightbox-img" src="" alt="">
+      <p id="lightbox-desc"></p>
+    </div>
+  </div>
+
+  <!-- ===== JavaScript ===== -->
   <script>
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxDesc = document.getElementById("lightbox-desc");
-  const closeBtn = document.querySelector(".close-btn");
+    /* ===== Lightbox ===== */
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxDesc = document.getElementById("lightbox-desc");
+    const lightboxTitle = document.getElementById("lightbox-title");
+    const closeBtn = document.querySelector(".close-btn");
 
-  // For each menu image
-  document.querySelectorAll(".menu-item img").forEach(img => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;           // show clicked image
-      lightboxDesc.textContent = img.dataset.desc || ""; // use data-desc as description
+    document.querySelectorAll(".menu-item img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxTitle.textContent = img.dataset.title || img.alt || "";
+        lightboxDesc.textContent = img.dataset.desc || "";
+        lightbox.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      });
     });
-  });
 
-  // Close button
-  closeBtn.addEventListener("click", () => {
-    lightbox.style.display = "none";
-  });
-
-  // Close on background click
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
+    function closeLightbox() {
       lightbox.style.display = "none";
+      document.body.style.overflow = "";
+      lightboxImg.src = "";
     }
-  });
-</script>
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
 
-  
+    /* ===== Cart ===== */
+    let order = [];          // store strings for WhatsApp display
+    let total = 0;           // total cost
+    let itemsCount = 0;      // total pieces for badge
+
+    const orderList = document.getElementById("order-list");
+    const orderTotal = document.getElementById("order-total");
+    const phoneNumber = "15615021743"; // WhatsApp - bakery number
+    const cartBadge = document.getElementById("cart-badge");
+    const cartEl = document.getElementById("cart");
+
+    function updateBadge() {
+      cartBadge.textContent = itemsCount;
+    }
+
+    document.querySelectorAll(".add-to-order").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const item = btn.dataset.item;
+        const price = parseFloat(btn.dataset.price);
+        const qtyInput = btn.previousElementSibling;
+        const qty = parseInt(qtyInput.value, 10);
+
+        if (Number.isNaN(qty) || qty <= 0) {
+          alert("Please enter a quantity of 1 or more.");
+          return;
+        }
+
+        const lineTotal = price * qty;
+        const itemText = `${item} x${qty} - $${lineTotal.toFixed(2)}`;
+        order.push(itemText);
+        total += lineTotal;
+        itemsCount += qty;
+
+        const li = document.createElement("li");
+        li.textContent = itemText;
+        orderList.appendChild(li);
+        orderTotal.textContent = total.toFixed(2);
+        updateBadge();
+
+        // ✨ Sparkle + 🛒 Cart Shake animations
+        btn.classList.add("sparkle");
+        btn.addEventListener("animationend", () => {
+          btn.classList.remove("sparkle");
+        }, { once: true });
+
+        cartEl.classList.add("shake");
+        cartEl.addEventListener("animationend", () => {
+          cartEl.classList.remove("shake");
+        }, { once: true });
+      });
+    });
+
+    document.getElementById("send-order").addEventListener("click", () => {
+      if (order.length === 0) {
+        alert("Your order is empty!");
+        return;
+      }
+      const message =
+        "Hello! I'd like to order:\n\n" +
+        order.join("\n") +
+        `\n\nItems: ${itemsCount}\nTotal: $${total.toFixed(2)}`;
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+
+    document.getElementById("clear-order").addEventListener("click", () => {
+      order = [];
+      total = 0;
+      itemsCount = 0;
+      orderList.innerHTML = "";
+      orderTotal.textContent = "0.00";
+      updateBadge();
+    });
+  </script>
 </body>
 </html>
