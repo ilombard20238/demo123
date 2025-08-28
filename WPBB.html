@@ -420,7 +420,16 @@
       let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank");
     });
-
+// Send order via SMS
+document.getElementById("send-sms").addEventListener("click", () => {
+  if (order.length === 0) {
+    alert("Your order is empty!");
+    return;
+  }
+  let message = "Hello! I'd like to order:\n\n" + order.join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+  let url = `sms:${phoneNumber}?&body=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+});
     document.getElementById("clear-order").addEventListener("click", () => {
       order = [];
       total = 0;
