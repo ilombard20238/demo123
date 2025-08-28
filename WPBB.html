@@ -4,30 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>West Palm Conchas</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
-
   <style>
     /* ===== Base / Theme ===== */
     body {
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Playfair Display', serif;
       margin: 0;
       background: #fdf6e3; /* soft cream */
       color: #4e342e;      /* dark mocha */
     }
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
-
     header {
       background: #a1887f; /* warm pastel brown */
       padding: 1rem;
       text-align: center;
     }
+    header img {
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
     header h1 {
       margin: 0;
       color: #fff8f0;      /* light cream text */
+      font-size: 2rem;
     }
     nav {
       margin: 1rem 0;
@@ -81,6 +81,7 @@
       width: 220px;
       box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
       text-align: center;
+      position: relative;
     }
     .menu-item img {
       width: 100%;
@@ -109,18 +110,16 @@
     }
     .menu-item button:hover { background: #6d4c41; }
 
-    /* Sparkle effect */
-    .sparkle::after {
-      content: "✨";
+    /* ===== Sparkle effect ===== */
+    .sparkle {
       position: absolute;
-      top: -10px;
-      right: -10px;
-      animation: sparkle 0.6s ease-out;
-      font-size: 20px;
+      pointer-events: none;
+      font-size: 14px;
+      animation: sparkleAnim 0.8s ease-out forwards;
     }
-    @keyframes sparkle {
-      0% { opacity: 1; transform: scale(0.5) rotate(0deg); }
-      100% { opacity: 0; transform: scale(2) rotate(180deg); }
+    @keyframes sparkleAnim {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-20px) scale(0.5); opacity: 0; }
     }
 
     /* ===== Footer ===== */
@@ -152,6 +151,7 @@
       cursor: pointer;
     }
     #send-order { background: #4caf50; color: white; }
+    #send-sms { background: #1976d2; color: white; }
     #clear-order { background: #b0bec5; }
 
     /* ===== Lightbox ===== */
@@ -199,14 +199,16 @@
       line-height: 1;
     }
   </style>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <img src="images/logo.jpg" alt="West Palm Conchas Logo" 
-         style="height:120px; width:120px; border-radius:50%; object-fit:cover; margin-bottom:10px;">
+    <img src="images/logo.jpg" alt="West Palm Conchas Logo">
     <h1>West Palm Conchas</h1>
     <nav>
       <a href="#menu">Menu</a>
+      <a href="#cart">Your Order</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -214,8 +216,8 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h2>West Palm Conchas</h2>
-    <p>Authentic Mexican pastries baked fresh every day</p>
+    <h2>Authentic Mexican Conchas 🥖</h2>
+    <p>Traditional pastries baked fresh every morning</p>
     <a href="#menu" class="btn">View Menu</a>
   </section>
 
@@ -223,90 +225,66 @@
   <section id="menu" class="menu">
     <h2>Our Menu</h2>
     <div class="menu-items">
-      <!-- Example item -->
+      <!-- Croissant -->
       <div class="menu-item">
-        <img src="images/croissant.jpg" alt="Croissant"
-             data-title="Croissant"
-             data-desc="Flaky, buttery, and golden brown.">
+        <img src="images/croissant.jpg" alt="Croissant" data-title="Croissant" data-desc="Flaky, buttery, and golden brown.">
         <h3>Croissant</h3>
-        <p>Flaky, buttery, and golden brown.</p>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Croissant" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Cinnamon Concha -->
       <div class="menu-item">
-        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha"
-             data-title="Cinnamon Concha"
-             data-desc="Soft bread with cinnamon topping — a perfect sugary treat.">
+        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha" data-title="Cinnamon Concha" data-desc="Soft bread with cinnamon topping.">
         <h3>Cinnamon Concha</h3>
-        <p>Soft with sweet Cinnamon topping.</p>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Cinnamon Concha" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Chocolate Concha -->
       <div class="menu-item">
-        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha"
-             data-title="Chocolate Concha"
-             data-desc="Soft bread with rich chocolate topping for chocolate lovers.">
+        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha" data-title="Chocolate Concha" data-desc="Soft bread with rich chocolate topping.">
         <h3>Chocolate Concha</h3>
-        <p>Soft with sweet Chocolate topping.</p>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Chocolate Concha" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Vanilla Concha -->
       <div class="menu-item">
-        <img src="images/vanilla1.jpg" alt="Vanilla Concha"
-             data-title="Vanilla Concha"
-             data-desc="Soft bread with vanilla topping — simple and delicious.">
-        <h3>Vanilla Conchas</h3>
-        <p>Soft with sweet vanilla topping.</p>
+        <img src="images/vanilla1.jpg" alt="Vanilla Concha" data-title="Vanilla Concha" data-desc="Soft bread with vanilla topping.">
+        <h3>Vanilla Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Vanilla Concha" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Banana Bread -->
       <div class="menu-item">
-        <img src="images/Banana Bread.jpg" alt="Banana Bread"
-             data-title="Banana Bread"
-             data-desc="Family-size loaf with walnuts, baked with love.">
+        <img src="images/Banana Bread.jpg" alt="Banana Bread" data-title="Banana Bread" data-desc="Family-size loaf with walnuts.">
         <h3>Banana Bread</h3>
-        <p>Banana Bread loaf, morning breakfast for everyone!</p>
         <p><strong>$10.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Banana Bread" data-price="10.00">Add to Order</button>
       </div>
-
+      <!-- Mini Banana Bread -->
       <div class="menu-item">
-        <img src="images/banana-bread-mini.jpg" alt="Mini Banana Bread"
-             data-title="Banana Bread Mini"
-             data-desc="Bite-size banana bread with walnuts — perfect on the go.">
-        <h3>Banana Bread Mini</h3>
-        <p>Banana Bread mini loaf super great for a quick morning bite!</p>
+        <img src="images/banana-bread-mini.jpg" alt="Mini Banana Bread" data-title="Mini Banana Bread" data-desc="Bite-size banana bread with walnuts.">
+        <h3>Mini Banana Bread</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Banana Bread Mini" data-price="2.00">Add to Order</button>
+        <button class="add-to-order" data-item="Mini Banana Bread" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Guava Pastry -->
       <div class="menu-item">
-        <img src="images/guava-pastry.jpg" alt="Guava Pastry"
-             data-title="Guava Pastry"
-             data-desc="Sweet, flaky pastry filled with guava.">
+        <img src="images/guava-pastry.jpg" alt="Guava Pastry" data-title="Guava Pastry" data-desc="Sweet, flaky pastry filled with guava.">
         <h3>Guava Pastry</h3>
-        <p>Sweet flaky guava filled pastry.</p>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Guava Pastry" data-price="2.00">Add to Order</button>
       </div>
-
+      <!-- Quesito -->
       <div class="menu-item">
-        <img src="images/quesito.jpg" alt="Quesito"
-             data-title="Quesito"
-             data-desc="Creamy, cheese-filled pastry with a satisfying crunch.">
+        <img src="images/quesito.jpg" alt="Quesito" data-title="Quesito" data-desc="Creamy, cheese-filled pastry with a crunch.">
         <h3>Quesito</h3>
-        <p>Creamy cheese-filled pastry with a nice crunch.</p>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Quesito" data-price="2.00">Add to Order</button>
@@ -314,23 +292,18 @@
     </div>
   </section>
 
-    <!-- CART -->
+  <!-- CART -->
   <div class="cart" id="cart">
     <h3>Your Order</h3>
     <ul id="order-list"></ul>
     <p><strong>Total: $<span id="order-total">0.00</span></strong></p>
+    <!-- Customer Name -->
+    <input type="text" id="customer-name" placeholder="Your Name" style="width:100%; margin-bottom:10px; padding:8px; border-radius:6px; border:1px solid #ccc;">
     <button id="send-order">Send Order via WhatsApp</button>
     <button id="send-sms">Send Order via SMS</button>
     <button id="clear-order">Clear Order</button>
   </div>
-   <!-- NEW: customer name input -->
-  <input type="text" id="customer-name" placeholder="Your Name" style="width:100%; margin-bottom:10px; padding:8px; border-radius:6px; border:1px solid #ccc;">
 
-  <button id="send-order">Send Order via WhatsApp</button>
-  <button id="send-sms">Send Order via SMS</button>
-  <button id="clear-order">Clear Order</button>
-</div>
-  
   <!-- ABOUT -->
   <section id="about" class="menu">
     <h2>About Us</h2>
@@ -349,7 +322,7 @@
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
-  <!-- ===== Lightbox Markup ===== -->
+  <!-- ===== Lightbox ===== -->
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
       <span class="close-btn" aria-label="Close">&times;</span>
@@ -396,7 +369,7 @@
     const phoneNumber = "15615021743"; // bakery number
 
     document.querySelectorAll(".add-to-order").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
         let item = btn.dataset.item;
         let price = parseFloat(btn.dataset.price);
         let qty = parseInt(btn.previousElementSibling.value);
@@ -412,40 +385,63 @@
           orderTotal.textContent = total.toFixed(2);
 
           // Sparkle effect
-          btn.classList.add("sparkle");
-          setTimeout(() => btn.classList.remove("sparkle"), 600);
+          for (let i = 0; i < 5; i++) {
+            let sparkle = document.createElement("span");
+            sparkle.textContent = "✨";
+            sparkle.className = "sparkle";
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * -10}px`;
+            btn.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+          }
         }
       });
     });
 
+    // WhatsApp order
     document.getElementById("send-order").addEventListener("click", () => {
+      const name = document.getElementById("customer-name").value.trim();
+      if (!name) {
+        alert("Please enter your name before sending the order.");
+        return;
+      }
       if (order.length === 0) {
         alert("Your order is empty!");
         return;
       }
-      let message = "Hello! I'd like to order:\n\n" + order.join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+      let message = `Hello! My name is ${name}. I'd like to order:\n\n` 
+                    + order.join("\n") 
+                    + `\n\nTotal: $${total.toFixed(2)}`;
       let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank");
     });
-// Send order via SMS
-document.getElementById("send-sms").addEventListener("click", () => {
-  if (order.length === 0) {
-    alert("Your order is empty!");
-    return;
-  }
-  let message = `Hello! My name is ${name}. I'd like to order:\n\n` 
-                + order.join("\n") 
-                + `\n\nTotal: $${total.toFixed(2)}`;
-  let url = `sms:${phoneNumber}?&body=${encodeURIComponent(message)}`;
-  window.open(url, "_blank");
-});
+
+    // SMS order
+    document.getElementById("send-sms").addEventListener("click", () => {
+      const name = document.getElementById("customer-name").value.trim();
+      if (!name) {
+        alert("Please enter your name before sending the order.");
+        return;
+      }
+      if (order.length === 0) {
+        alert("Your order is empty!");
+        return;
+      }
+      let message = `Hello! My name is ${name}. I'd like to order:\n\n` 
+                    + order.join("\n") 
+                    + `\n\nTotal: $${total.toFixed(2)}`;
+      let url = `sms:${phoneNumber}?&body=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+
+    // Clear order
     document.getElementById("clear-order").addEventListener("click", () => {
       order = [];
       total = 0;
       orderList.innerHTML = "";
       orderTotal.textContent = "0.00";
+      document.getElementById("customer-name").value = "";
     });
   </script>
 </body>
 </html>
-
