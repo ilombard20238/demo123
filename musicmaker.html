@@ -1,0 +1,131 @@
+// MainComponent.h
+#pragma once
+#include <JuceHeader.h>
+
+class MainComponent  : public juce::AudioAppComponent,
+                       public juce::Button::Listener
+{
+public:
+    MainComponent();
+    ~MainComponent() override;
+
+    void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
+    void getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) override;
+    void releaseResources() override;
+
+    void paint (juce::Graphics& g) override;
+    void resized() override;
+
+    void buttonClicked(juce::Button* b) override;
+
+private:
+    // Transport
+    juce::AudioTransportSource transportSource;
+    juce::AudioFormatManager formatManager;
+
+    // Drum Sampler
+    juce::SamplerVoice* drumVoice;
+    juce::Synthesiser drumSynth;
+
+    // Piano Synth
+    juce::Synthesiser pianoSynth;
+
+    // Recording
+    juce::AudioRecorder recorder;
+
+    // UI
+    juce::TextButton playButton { "Play" };
+    juce::TextButton stopButton { "Stop" };
+    juce::TextButton recordButton { "Record" };
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+};
+
+// MainComponent.cpp
+#include "MainComponent.h"
+
+MainComponent::MainComponent()
+{
+    formatManager.registerBasicFormats();
+
+    // --- Drum Sampler setup
+    drumSynth.clearVoices();
+    drumSynth.addVoice(new juce::SamplerVoice());
+
+    // Load a WAV kick/snare sample here
+    juce::File drumFile = juce::File::getCurrentWorkingDirectory().getChildFile("kick.wav");
+    std::unique_ptr<juce::AudioFormatReader> reader (formatManager.createReaderFor(drumFile));
+    if (reader.get() != nullptr)
+    {
+        juce::BigInteger midiNotes;
+        midiNotes.setRange(36, 1, true); // kick on MIDI note 36
+        drumSynth.addSound(new juce::SamplerSound("Kick", *reader, midiNotes, 36, 0.0, 0.1, 10.0));
+    }
+
+    // --- Piano Synth setup
+    for (int i = 0; i < 8; ++i)
+        pianoSynth.addVoice(new juce::SynthesiserVoice()); // replace with a custom voice later
+
+    // --- UI setup
+    addAndMakeVisible(playButton);
+    addAndMakeVisible(stopButton);
+    addAndMakeVisible(recordButton);
+    playButton.addListener(this);
+    stopButton.addListener(this);
+    recordButton.addListener(this);
+
+    setAudioChannels(2, 2); // stereo in/out
+    setSize (600, 400);
+}
+
+MainComponent::~MainComponent()
+{
+    shutdownAudio();
+}
+
+void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+{
+    drumSynth.setCurrentPlaybackSampleRate(sampleRate);
+    pianoSynth.setCurrentPlaybackSampleRate(sampleRate);
+}
+
+void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
+{
+    bufferToFill.clearActiveBufferRegion();
+
+    // Collect MIDI events here (e.g., from piano roll)
+    juce::MidiBuffer midi;
+
+    drumSynth.renderNextBlock(*bufferToFill.buffer, midi, 0, bufferToFill.numSamples);
+    pianoSynth.renderNextBlock(*bufferToFill.buffer, midi, 0, bufferToFill.numSamples);
+
+    // TODO: add microphone input + record to file
+}
+
+void MainComponent::releaseResources() {}
+
+void MainComponent::paint (juce::Graphics& g)
+{
+    g.fillAll (juce::Colours::black);
+    g.setColour (juce::Colours::white);
+    g.setFont (20.0f);
+    g.drawFittedText ("Mini DAW Starter", getLocalBounds(), juce::Justification::centred, 1);
+}
+
+void MainComponent::resized()
+{
+    auto area = getLocalBounds().reduced(20);
+    playButton.setBounds(area.removeFromTop(30));
+    stopButton.setBounds(area.removeFromTop(30));
+    recordButton.setBounds(area.removeFromTop(30));
+}
+
+void MainComponent::buttonClicked(juce::Button* b)
+{
+    if (b == &playButton)
+        transportSource.start();
+    else if (b == &stopButton)
+        transportSource.stop();
+    else if (b == &recordButton)
+        recorder.startRecording("vocals.wav"); // implement recorder class
+}
