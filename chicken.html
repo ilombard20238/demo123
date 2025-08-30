@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Running Chicken</title>
+  <style>
+    :root{
+      --sky:#c9ecff;
+      --ground:#8bd17c;
+      --dirt:#6bb162;
+      --sun:#ffd166;
+      --white:#fff9f2;
+      --red:#e84b3a;
+      --orange:#ff9f1c;
+      --shadow:#00000020;
+      --black:#282828;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(var(--sky), #a6e1ff 60%);
+      overflow:hidden;
+    }
+
+    /* Scene container */
+    .scene{
+      position:relative;
+      width:100vw; height:100vh;
+      display:grid; place-items:center;
+      isolation:isolate;
+    }
+
+    /* Sun */
+    .sun{
+      position:absolute; top:5vh; right:6vw;
+      width:10vmin; aspect-ratio:1/1; border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, #fff6b3, var(--sun) 60%, #ffb703 80%);
+      box-shadow:0 0 30px 10px #ffd16666;
+      z-index:0;
+    }
+
+    /* Ground */
+    .ground{
+      position:absolute; left:0; right:0; bottom:0;
+      height:35vh; background:var(--ground);
+      overflow:hidden;
+      box-shadow:0 -10px 30px var(--shadow) inset;
+    }
+
+    /* Scrolling dirt stripes to suggest movement */
+    .ground::before, .ground::after{
+      content:""; position:absolute; left:-100%; right:-100%;
+      height:10px; background: repeating-linear-gradient(
+        90deg, var(--dirt) 0 40px, #79bf70 40px 80px
+      );
+      opacity:.5; filter: blur(0.4px);
+      animation: scroll 1.5s linear infinite;
+    }
+    .ground::after{ bottom:20vh; opacity:.35; animation-duration: 3s; height:12px; }
+    .ground::before{ bottom:5vh; }
+
+    @keyframes scroll{ to{ transform: translateX(100%);} }
+
+    /* Path shadow under chicken */
+    .shadow{
+      position:absolute; bottom:20vh; left:50%; transform:translateX(-50%);
+      width:min(42vmin, 60vw); height:2.8vmin; border-radius:50%;
+      background: radial-gradient(ellipse at center, #00000033, transparent 70%);
+      filter: blur(2px); z-index:0; opacity:.45;
+      animation: squish 0.35s ease-in-out infinite;
+    }
+    @keyframes squish{ 50%{ transform:translateX(-50%) scaleX(1.05);} }
+
+    /* Controls */
+    .controls{
+      position: absolute; left:50%; bottom:2rem; transform: translateX(-50%);
+      background: #ffffffb5; backdrop-filter: blur(6px);
+      border: 1px solid #ffffff; box-shadow: 0 10px 30px var(--shadow);
+      border-radius: 14px; padding: .6rem .9rem; display:flex; gap:.8rem; align-items:center;
+      z-index:5; color:#153b2c;
+    }
+    .btn{
+      appearance:none; border:none; border-radius:10px; padding:.5rem .75rem; cursor:pointer;
+      background:#153b2c; color:white; font-weight:600; letter-spacing:.3px;
+    }
+    .btn:active{ transform: translateY(1px); }
+    label{font-size:.9rem}
+
+    /* Chicken wrapper (moves across screen) */
+    .runner{
+      position:absolute; bottom: calc(20vh + 2.6vmin); left:-30vmin; /* start off-screen */
+      animation: runAcross var(--speed, 6s) linear infinite;
+      z-index:2; will-change: transform;
+    }
+
+    @keyframes runAcross{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(120vw); }
+    }
+
+    /* Chicken (SVG sized responsively) */
+    .chicken{ width:min(22vmin, 45vw); height:auto; display:block; }
+
+    /* Leg animations */
+    .leg { transform-origin: top center; animation: legSwing .35s cubic-bezier(.4,0,.2,1) infinite; }
+    .leg.back { animation-delay: .175s; }
+    @keyframes legSwing{ 0%{ transform: rotate(25deg);} 50%{ transform: rotate(-25deg);} 100%{ transform: rotate(25deg);} }
+
+    /* Wing flap */
+    .wing{ transform-origin: 60% 60%; animation: flap .45s ease-in-out infinite; }
+    @keyframes flap{ 50%{ transform: rotate(-10deg);} }
+
+    /* Comb bounce */
+    .comb{ transform-origin: 50% 50%; animation: bob .35s ease-in-out infinite; }
+    @keyframes bob{ 50%{ transform: translateY(-1.1px);} }
+
+    /* Pause on hover or when [data-paused] */
+    .scene[data-paused="true"] *{ animation-play-state: paused !important; }
+    .scene:hover *{ animation-play-state: paused; }
+
+    /* Reduced motion respects user preference */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene" aria-label="Cartoon chicken running across a field">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="ground" aria-hidden="true"></div>
+    <div class="shadow" aria-hidden="true"></div>
+
+    <div class="runner" id="runner">
+      <!-- Chicken: inline SVG so we can animate parts with CSS classes -->
+      <svg class="chicken" viewBox="0 0 220 160" role="img" aria-labelledby="title desc">
+        <title id="title">Running Chicken</title>
+        <desc id="desc">Cute white chicken with orange beak and legs, red comb, flapping wing and running legs.</desc>
+
+        <!-- Tail feathers -->
+        <g fill="url(#tailGrad)" opacity="0.9">
+          <ellipse cx="70" cy="72" rx="20" ry="12" transform="rotate(-25 70 72)"/>
+          <ellipse cx="58" cy="62" rx="18" ry="10" transform="rotate(-35 58 62)"/>
+          <ellipse cx="50" cy="52" rx="15" ry="9" transform="rotate(-45 50 52)"/>
+        </g>
+
+        <!-- Body -->
+        <ellipse cx="110" cy="80" rx="60" ry="40" fill="var(--white)" stroke="#e7dfd7" stroke-width="3"/>
+
+        <!-- Wing -->
+        <g class="wing">
+          <ellipse cx="125" cy="85" rx="28" ry="18" fill="#f8efe6" stroke="#e7dfd7" stroke-width="3"/>
+        </g>
+
+        <!-- Head -->
+        <circle cx="160" cy="60" r="24" fill="var(--white)" stroke="#e7dfd7" stroke-width="3"/>
+
+        <!-- Comb -->
+        <g class="comb" fill="var(--red)">
+          <circle cx="152" cy="41" r="7"/>
+          <circle cx="160" cy="36" r="8"/>
+          <circle cx="168" cy="41" r="7"/>
+        </g>
+
+        <!-- Eye -->
+        <circle cx="168" cy="60" r="4.2" fill="var(--black)"/>
+        <circle cx="170.3" cy="58.2" r="1.5" fill="#fff"/>
+
+        <!-- Beak -->
+        <polygon points="182,63 166,67 182,75" fill="var(--orange)" stroke="#d98200" stroke-width="2"/>
+
+        <!-- Legs -->
+        <g class="leg back">
+          <rect x="112" y="107" width="6" height="34" rx="3" fill="var(--orange)" />
+          <path d="M115 141 l-12 10 M115 141 l8 10 M115 131 l10 6" stroke="#d98200" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g class="leg front">
+          <rect x="132" y="107" width="6" height="34" rx="3" fill="var(--orange)" />
+          <path d="M135 141 l-12 10 M135 141 l8 10 M135 131 l10 6" stroke="#d98200" stroke-width="4" stroke-linecap="round"/>
+        </g>
+
+        <!-- Definitions -->
+        <defs>
+          <linearGradient id="tailGrad" x1="0" x2="1">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#f0e7dd"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="controls" role="group" aria-label="Animation controls">
+      <button class="btn" id="toggle" aria-pressed="false" aria-label="Pause animation">Pause</button>
+      <label for="speed">Speed</label>
+      <input id="speed" type="range" min="4" max="12" step="0.5" value="6" aria-label="Set running speed" />
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById('scene');
+    const toggle = document.getElementById('toggle');
+    const speed = document.getElementById('speed');
+
+    // Pause/resume
+    toggle.addEventListener('click', () => {
+      const paused = scene.getAttribute('data-paused') === 'true';
+      scene.setAttribute('data-paused', String(!paused));
+      toggle.textContent = paused ? 'Pause' : 'Resume';
+      toggle.setAttribute('aria-pressed', String(!paused));
+      toggle.setAttribute('aria-label', paused ? 'Pause animation' : 'Resume animation');
+    });
+
+    // Adjust speed (duration of runAcross)
+    const setSpeed = () => {
+      const val = Number(speed.value);
+      document.documentElement.style.setProperty('--speed', val + 's');
+    };
+    speed.addEventListener('input', setSpeed);
+    setSpeed();
+
+    // Tap anywhere to pause on touch devices
+    scene.addEventListener('pointerdown', (e) => {
+      if(e.target.closest('.controls')) return; // ignore if using controls
+      toggle.click();
+    });
+  </script>
+</body>
+</html>
