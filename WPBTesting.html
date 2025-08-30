@@ -9,11 +9,11 @@
     body {
       font-family: 'Playfair Display', serif;
       margin: 0;
-      background: #fdf6e3;
-      color: #4e342e;
+      background: #fdf6e3; /* soft cream */
+      color: #4e342e;      /* dark mocha */
     }
     header {
-      background: #a1887f;
+      background: #a1887f; /* warm pastel brown */
       padding: 1rem;
       text-align: center;
     }
@@ -26,7 +26,7 @@
     }
     header h1 {
       margin: 0;
-      color: #fff8f0;
+      color: #fff8f0;      /* light cream text */
       font-size: 2rem;
     }
     nav {
@@ -153,52 +153,6 @@
     #send-order { background: #4caf50; color: white; }
     #send-sms { background: #1976d2; color: white; }
     #clear-order { background: #b0bec5; }
-    #paypal-button-container { margin-top: 15px; }
-
-    /* ===== Lightbox ===== */
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .lightbox-content {
-      position: relative;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-    }
-    .lightbox-content h3 {
-      margin: 0 0 10px;
-      color: #4e342e;
-    }
-    .lightbox-content img {
-      max-width: 90%;
-      max-height: 70vh;
-      border-radius: 10px;
-      object-fit: contain;
-    }
-    .lightbox-content p {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #4e342e;
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 2rem;
-      color: #333;
-      cursor: pointer;
-      line-height: 1;
-    }
   </style>
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
@@ -226,19 +180,19 @@
   <section id="menu" class="menu">
     <h2>Our Menu</h2>
     <div class="menu-items">
-      <!-- Croissant -->
+      <!-- Croissant with options -->
       <div class="menu-item">
-        <img src="images/croissant.jpg" alt="Croissant" data-title="Croissant" data-desc="A buttery Croissant with flavors: plain, guava, and cheese.">
+        <img src="images/croissant.jpg" alt="Croissant">
         <h3>Croissant</h3>
-        <p><strong>From $2.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Plain Croissant" data-price="2.00">Plain - $2.00</button>
-        <button class="add-to-order" data-item="Guava Croissant" data-price="2.50">Guava - $2.50</button>
-        <button class="add-to-order" data-item="Cheese Croissant" data-price="2.50">Cheese - $2.50</button>
+        <p><strong>Choose a flavor:</strong></p>
+        <input type="number" value="1" min="1">
+        <button class="add-to-order" data-item="Plain Croissant" data-price="2.00">Plain $2.00</button>
+        <button class="add-to-order" data-item="Guava Croissant" data-price="2.50">Guava $2.50</button>
+        <button class="add-to-order" data-item="Cheese Croissant" data-price="2.50">Cheese $2.50</button>
       </div>
       <!-- Cinnamon Concha -->
       <div class="menu-item">
-        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha" data-title="Cinnamon Concha" data-desc="Soft bread with cinnamon topping.">
+        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha">
         <h3>Cinnamon Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -246,7 +200,7 @@
       </div>
       <!-- Chocolate Concha -->
       <div class="menu-item">
-        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha" data-title="Chocolate Concha" data-desc="Soft bread with rich chocolate topping.">
+        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha">
         <h3>Chocolate Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -254,7 +208,7 @@
       </div>
       <!-- Vanilla Concha -->
       <div class="menu-item">
-        <img src="images/vanilla1.jpg" alt="Vanilla Concha" data-title="Vanilla Concha" data-desc="Soft bread with vanilla topping.">
+        <img src="images/vanilla1.jpg" alt="Vanilla Concha">
         <h3>Vanilla Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -262,7 +216,7 @@
       </div>
       <!-- Banana Bread -->
       <div class="menu-item">
-        <img src="images/Banana Bread.jpg" alt="Banana Bread" data-title="Banana Bread" data-desc="Family-size loaf with walnuts.">
+        <img src="images/Banana Bread.jpg" alt="Banana Bread">
         <h3>Banana Bread</h3>
         <p><strong>$10.00</strong></p>
         <input type="number" value="1" min="0">
@@ -270,7 +224,7 @@
       </div>
       <!-- Mini Banana Bread -->
       <div class="menu-item">
-        <img src="images/bananabreadbabe.jpg" alt="Mini Banana Bread" data-title="Mini Banana Bread" data-desc="Bite-size banana bread with walnuts.">
+        <img src="images/bananabreadbabe.jpg" alt="Mini Banana Bread">
         <h3>Mini Banana Bread</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -278,7 +232,7 @@
       </div>
       <!-- Guava Pastry -->
       <div class="menu-item">
-        <img src="images/guava-pastry.jpg" alt="Guava Pastry" data-title="Guava Pastry" data-desc="Sweet, flaky pastry filled with guava.">
+        <img src="images/guava-pastry.jpg" alt="Guava Pastry">
         <h3>Guava Pastry</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -286,7 +240,7 @@
       </div>
       <!-- Quesito -->
       <div class="menu-item">
-        <img src="images/quecito.jpg" alt="Quesito" data-title="Quesito" data-desc="Creamy, cheese-filled pastry with a crunch.">
+        <img src="images/quecito.jpg" alt="Quesito">
         <h3>Quesito</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -294,7 +248,7 @@
       </div>
       <!-- Cream Puff -->
       <div class="menu-item">
-        <img src="images/creampuff.jpg" alt="Cream Puff" data-title="Cream Puff" data-desc="Creamy filled Barbarian Bread.">
+        <img src="images/creampuff.jpg" alt="Cream Puff">
         <h3>Cream Puff</h3>
         <p><strong>$2.50</strong></p>
         <input type="number" value="1" min="0">
@@ -302,7 +256,7 @@
       </div>
       <!-- Deditos -->
       <div class="menu-item">
-        <img src="images/dedito.jpg" alt="Deditos" data-title="Deditos" data-desc="Flaky pastry with sugar on top.">
+        <img src="images/dedito.jpg" alt="Deditos">
         <h3>Deditos</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -310,7 +264,7 @@
       </div>
       <!-- Orange Concha -->
       <div class="menu-item">
-        <img src="images/orangeconcha.jpg" alt="Orange Concha" data-title="Orange Concha" data-desc="Light orange flavored Concha.">
+        <img src="images/orangeconcha.jpg" alt="Orange Concha">
         <h3>Orange Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
@@ -318,11 +272,11 @@
       </div>
       <!-- Sesame seed Bread -->
       <div class="menu-item">
-        <img src="images/pdm.jpg" alt="Sesame seed Bread" data-title="Sesame seed Bread" data-desc="Light sesame bread, perfect for sandwiches.">
-        <h3>Sesame Seed Bread</h3>
+        <img src="images/pdm.jpg" alt="Sesame seed Bread">
+        <h3>Sesame seed Bread</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Sesame Seed Bread" data-price="2.00">Add to Order</button>
+        <button class="add-to-order" data-item="Sesame seed Bread" data-price="2.00">Add to Order</button>
       </div>
     </div>
   </section>
@@ -336,8 +290,7 @@
     <button id="send-order">Send Order via WhatsApp</button>
     <button id="send-sms">Send Order via SMS</button>
     <button id="clear-order">Clear Order</button>
-    <!-- PayPal Button -->
-    <div id="paypal-button-container"></div>
+    <div id="paypal-button-container" style="margin-top:15px;"></div>
   </div>
 
   <!-- ABOUT -->
@@ -358,50 +311,13 @@
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
-  <!-- ===== Lightbox ===== -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
-      <span class="close-btn" aria-label="Close">&times;</span>
-      <h3 id="lightbox-title"></h3>
-      <img id="lightbox-img" src="" alt="">
-      <p id="lightbox-desc"></p>
-    </div>
-  </div>
-
   <!-- ===== JavaScript ===== -->
   <script>
-    /* ===== Lightbox ===== */
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const lightboxDesc = document.getElementById("lightbox-desc");
-    const lightboxTitle = document.getElementById("lightbox-title");
-    const closeBtn = document.querySelector(".close-btn");
-
-    document.querySelectorAll(".menu-item img").forEach(img => {
-      img.addEventListener("click", () => {
-        lightboxImg.src = img.src;
-        lightboxTitle.textContent = img.dataset.title || img.alt || "";
-        lightboxDesc.textContent = img.dataset.desc || "";
-        lightbox.style.display = "flex";
-        document.body.style.overflow = "hidden";
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.style.display = "none";
-      document.body.style.overflow = "";
-      lightboxImg.src = "";
-    }
-    closeBtn.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
-
-    /* ===== Cart ===== */
     let order = [];
     let total = 0;
     const orderList = document.getElementById("order-list");
     const orderTotal = document.getElementById("order-total");
-    const phoneNumber = "15617276649"; // Your WhatsApp/SMS number
+    const phoneNumber = "15617276649"; // your phone #
 
     document.querySelectorAll(".add-to-order").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -421,7 +337,7 @@
           orderList.appendChild(li);
           orderTotal.textContent = total.toFixed(2);
 
-          // Sparkle
+          // sparkle effect
           for (let i = 0; i < 5; i++) {
             let sparkle = document.createElement("span");
             sparkle.textContent = "✨";
@@ -435,7 +351,6 @@
       });
     });
 
-    /* ===== WhatsApp ===== */
     document.getElementById("send-order").addEventListener("click", () => {
       if (order.length === 0) { alert("Your order is empty."); return; }
       let name = document.getElementById("customer-name").value.trim() || "Customer";
@@ -444,7 +359,6 @@
       window.open(url, "_blank");
     });
 
-    /* ===== SMS ===== */
     document.getElementById("send-sms").addEventListener("click", () => {
       if (order.length === 0) { alert("Your order is empty."); return; }
       let name = document.getElementById("customer-name").value.trim() || "Customer";
@@ -453,7 +367,6 @@
       window.open(smsUrl, "_blank");
     });
 
-    /* ===== Clear ===== */
     document.getElementById("clear-order").addEventListener("click", () => {
       order = [];
       total = 0;
@@ -463,8 +376,8 @@
     });
   </script>
 
-  <!-- ===== PayPal SDK (LIVE) ===== -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AVBUWeA-DNNHYegS18Hzp2xhyK0uAPcTeNz0gC5NyiAP6T9ea8EFfpxB668ZjZOTJ9ZAO6ZYkdjbK8JJ&currency=USD"></script>
+  <!-- PayPal Sandbox SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AflwFldTW9Ya0Yq_09ddjmMOehUfeuYA3ISXBZvn5rWglmNLiBcEfILIgLMfygYAdUyaJenfaMBRP-hN&currency=USD"></script>
   <script>
     paypal.Buttons({
       createOrder: (data, actions) => {
@@ -476,7 +389,7 @@
       },
       onApprove: (data, actions) => {
         return actions.order.capture().then(details => {
-          alert("Payment completed by " + details.payer.name.given_name);
+          alert("✅ Test payment completed by " + details.payer.name.given_name);
         });
       }
     }).render('#paypal-button-container');
