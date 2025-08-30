@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>West Palm Conchas</title>
   <style>
-    /* ===== Base / Theme ===== */
+    /* ===== Theme ===== */
     body {
       font-family: 'Playfair Display', serif;
       margin: 0;
-      background: #fdf6e3; /* soft cream */
-      color: #4e342e;      /* dark mocha */
+      background: #fdf6e3;
+      color: #4e342e;
     }
     header {
-      background: #a1887f; /* warm pastel brown */
+      background: #a1887f;
       padding: 1rem;
       text-align: center;
     }
@@ -26,7 +26,7 @@
     }
     header h1 {
       margin: 0;
-      color: #fff8f0;      /* light cream text */
+      color: #fff8f0;
       font-size: 2rem;
     }
     nav {
@@ -41,7 +41,7 @@
     }
     nav a:hover { color: #ffe0b2; }
 
-    /* ===== Hero ===== */
+    /* Hero */
     .hero {
       background: url("images/bakery-hero.jpg") center/cover no-repeat;
       color: #fff8f0;
@@ -64,7 +64,7 @@
     }
     .btn:hover { background: #a1887f; color: #fff8f0; }
 
-    /* ===== Menu cards ===== */
+    /* Menu */
     .menu { padding: 2rem; text-align: center; }
     .menu h2 { color: #6d4c41; }
     .menu-items {
@@ -110,7 +110,7 @@
     }
     .menu-item button:hover { background: #6d4c41; }
 
-    /* ===== Sparkle effect ===== */
+    /* Sparkle */
     .sparkle {
       position: absolute;
       pointer-events: none;
@@ -122,16 +122,7 @@
       100% { transform: translateY(-20px) scale(0.5); opacity: 0; }
     }
 
-    /* ===== Footer ===== */
-    footer {
-      background: #a1887f;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      color: #fff8f0;
-    }
-
-    /* ===== Cart ===== */
+    /* Cart */
     .cart {
       background: #fffaf5;
       border-radius: 10px;
@@ -153,8 +144,54 @@
     #send-order { background: #4caf50; color: white; }
     #send-sms { background: #1976d2; color: white; }
     #clear-order { background: #b0bec5; }
+
+    /* Footer */
+    footer {
+      background: #a1887f;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #fff8f0;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox-content {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    .lightbox-content h3 { margin: 0 0 10px; color: #4e342e; }
+    .lightbox-content img {
+      max-width: 90%;
+      max-height: 70vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+    .lightbox-content p { margin-top: 10px; font-size: 1rem; color: #4e342e; }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 2rem;
+      color: #333;
+      cursor: pointer;
+      line-height: 1;
+    }
   </style>
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -180,104 +217,63 @@
   <section id="menu" class="menu">
     <h2>Our Menu</h2>
     <div class="menu-items">
-      <!-- Croissant with options -->
+
+      <!-- Croissant -->
       <div class="menu-item">
-        <img src="images/croissant.jpg" alt="Croissant">
+        <img src="images/croissant.jpg" alt="Croissant" data-title="Croissant" data-desc="Buttery golden croissants, available plain, guava, or cheese.">
         <h3>Croissant</h3>
-        <p><strong>Choose a flavor:</strong></p>
-        <input type="number" value="1" min="1">
-        <button class="add-to-order" data-item="Plain Croissant" data-price="2.00">Plain $2.00</button>
-        <button class="add-to-order" data-item="Guava Croissant" data-price="2.50">Guava $2.50</button>
-        <button class="add-to-order" data-item="Cheese Croissant" data-price="2.50">Cheese $2.50</button>
+        <p><strong>Plain $2.00 | Guava $2.50 | Cheese $2.50</strong></p>
+        <input type="number" value="1" min="0">
+        <button class="add-to-order" data-item="Croissant (Plain)" data-price="2.00">Plain</button>
+        <button class="add-to-order" data-item="Croissant (Guava)" data-price="2.50">Guava</button>
+        <button class="add-to-order" data-item="Croissant (Cheese)" data-price="2.50">Cheese</button>
       </div>
+
       <!-- Cinnamon Concha -->
       <div class="menu-item">
-        <img src="images/cinnamon-vanilla.jpg" alt="Cinnamon Concha">
+        <img src="images/cinnamon-concha.jpg" alt="Cinnamon Concha" data-title="Cinnamon Concha" data-desc="Soft bread with cinnamon sugar topping.">
         <h3>Cinnamon Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Cinnamon Concha" data-price="2.00">Add to Order</button>
       </div>
-      <!-- Chocolate Concha -->
-      <div class="menu-item">
-        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha">
-        <h3>Chocolate Concha</h3>
-        <p><strong>$2.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Chocolate Concha" data-price="2.00">Add to Order</button>
-      </div>
+
       <!-- Vanilla Concha -->
       <div class="menu-item">
-        <img src="images/vanilla1.jpg" alt="Vanilla Concha">
+        <img src="images/vanilla-concha.jpg" alt="Vanilla Concha" data-title="Vanilla Concha" data-desc="Sweet vanilla topping on our fluffy conchas.">
         <h3>Vanilla Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
         <button class="add-to-order" data-item="Vanilla Concha" data-price="2.00">Add to Order</button>
       </div>
-      <!-- Banana Bread -->
+
+      <!-- Chocolate Concha -->
       <div class="menu-item">
-        <img src="images/Banana Bread.jpg" alt="Banana Bread">
-        <h3>Banana Bread</h3>
-        <p><strong>$10.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Banana Bread" data-price="10.00">Add to Order</button>
-      </div>
-      <!-- Mini Banana Bread -->
-      <div class="menu-item">
-        <img src="images/bananabreadbabe.jpg" alt="Mini Banana Bread">
-        <h3>Mini Banana Bread</h3>
+        <img src="images/chocolate-concha.jpg" alt="Chocolate Concha" data-title="Chocolate Concha" data-desc="Rich chocolate topping over our fresh conchas.">
+        <h3>Chocolate Concha</h3>
         <p><strong>$2.00</strong></p>
         <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Mini Banana Bread" data-price="2.00">Add to Order</button>
+        <button class="add-to-order" data-item="Chocolate Concha" data-price="2.00">Add to Order</button>
       </div>
-      <!-- Guava Pastry -->
+
+      <!-- Café de Olla -->
       <div class="menu-item">
-        <img src="images/guava-pastry.jpg" alt="Guava Pastry">
-        <h3>Guava Pastry</h3>
-        <p><strong>$2.00</strong></p>
+        <img src="images/cafe-de-olla.jpg" alt="Café de Olla" data-title="Café de Olla" data-desc="Traditional spiced Mexican coffee.">
+        <h3>Café de Olla</h3>
+        <p><strong>$3.00</strong></p>
         <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Guava Pastry" data-price="2.00">Add to Order</button>
+        <button class="add-to-order" data-item="Café de Olla" data-price="3.00">Add to Order</button>
       </div>
-      <!-- Quesito -->
+
+      <!-- Mexican Hot Chocolate -->
       <div class="menu-item">
-        <img src="images/quecito.jpg" alt="Quesito">
-        <h3>Quesito</h3>
-        <p><strong>$2.00</strong></p>
+        <img src="images/mexican-hot-chocolate.jpg" alt="Mexican Hot Chocolate" data-title="Mexican Hot Chocolate" data-desc="Creamy, spiced hot chocolate.">
+        <h3>Mexican Hot Chocolate</h3>
+        <p><strong>$3.00</strong></p>
         <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Quesito" data-price="2.00">Add to Order</button>
+        <button class="add-to-order" data-item="Mexican Hot Chocolate" data-price="3.00">Add to Order</button>
       </div>
-      <!-- Cream Puff -->
-      <div class="menu-item">
-        <img src="images/creampuff.jpg" alt="Cream Puff">
-        <h3>Cream Puff</h3>
-        <p><strong>$2.50</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Cream Puff" data-price="2.50">Add to Order</button>
-      </div>
-      <!-- Deditos -->
-      <div class="menu-item">
-        <img src="images/dedito.jpg" alt="Deditos">
-        <h3>Deditos</h3>
-        <p><strong>$2.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Deditos" data-price="2.00">Add to Order</button>
-      </div>
-      <!-- Orange Concha -->
-      <div class="menu-item">
-        <img src="images/orangeconcha.jpg" alt="Orange Concha">
-        <h3>Orange Concha</h3>
-        <p><strong>$2.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Orange Concha" data-price="2.00">Add to Order</button>
-      </div>
-      <!-- Sesame seed Bread -->
-      <div class="menu-item">
-        <img src="images/pdm.jpg" alt="Sesame seed Bread">
-        <h3>Sesame seed Bread</h3>
-        <p><strong>$2.00</strong></p>
-        <input type="number" value="1" min="0">
-        <button class="add-to-order" data-item="Sesame seed Bread" data-price="2.00">Add to Order</button>
-      </div>
+
     </div>
   </section>
 
@@ -311,42 +307,56 @@
     <p>© 2025 West Palm Conchas | Made with ❤️</p>
   </footer>
 
-  <!-- ===== JavaScript ===== -->
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+      <span class="close-btn">&times;</span>
+      <h3 id="lightbox-title"></h3>
+      <img id="lightbox-img" src="" alt="">
+      <p id="lightbox-desc"></p>
+    </div>
+  </div>
+
   <script>
+    /* Lightbox */
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxDesc = document.getElementById("lightbox-desc");
+    const lightboxTitle = document.getElementById("lightbox-title");
+    const closeBtn = document.querySelector(".close-btn");
+
+    document.querySelectorAll(".menu-item img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxTitle.textContent = img.dataset.title || img.alt;
+        lightboxDesc.textContent = img.dataset.desc || "";
+        lightbox.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      });
+    });
+    closeBtn.addEventListener("click", () => { lightbox.style.display = "none"; document.body.style.overflow = ""; });
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) { lightbox.style.display = "none"; document.body.style.overflow = ""; } });
+
+    /* Cart */
     let order = [];
     let total = 0;
     const orderList = document.getElementById("order-list");
     const orderTotal = document.getElementById("order-total");
-    const phoneNumber = "15617276649"; // your phone #
+    const phoneNumber = "15617276649";
 
     document.querySelectorAll(".add-to-order").forEach(btn => {
       btn.addEventListener("click", () => {
         let parent = btn.closest(".menu-item");
         let qty = parseInt(parent.querySelector("input[type='number']").value);
-
         if (qty > 0) {
           let item = btn.dataset.item;
           let price = parseFloat(btn.dataset.price);
-
-          let itemText = `${item} x${qty} - $${(price * qty).toFixed(2)}`;
-          order.push(itemText);
+          order.push({ name: item, qty: qty, price: price });
           total += price * qty;
-
           let li = document.createElement("li");
-          li.textContent = itemText;
+          li.textContent = `${item} x${qty} - $${(price*qty).toFixed(2)}`;
           orderList.appendChild(li);
           orderTotal.textContent = total.toFixed(2);
-
-          // sparkle effect
-          for (let i = 0; i < 5; i++) {
-            let sparkle = document.createElement("span");
-            sparkle.textContent = "✨";
-            sparkle.className = "sparkle";
-            sparkle.style.left = `${Math.random() * 100}%`;
-            sparkle.style.top = `${Math.random() * -10}px`;
-            btn.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 800);
-          }
         }
       });
     });
@@ -354,42 +364,51 @@
     document.getElementById("send-order").addEventListener("click", () => {
       if (order.length === 0) { alert("Your order is empty."); return; }
       let name = document.getElementById("customer-name").value.trim() || "Customer";
-      let message = `Order from ${name}:\n\n${order.join("\n")}\n\nTotal: $${total.toFixed(2)}`;
-      let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-      window.open(url, "_blank");
+      let message = `Order from ${name}:\n\n` + order.map(o => `${o.name} x${o.qty} - $${(o.price*o.qty).toFixed(2)}`).join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+      window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
     });
 
     document.getElementById("send-sms").addEventListener("click", () => {
       if (order.length === 0) { alert("Your order is empty."); return; }
       let name = document.getElementById("customer-name").value.trim() || "Customer";
-      let message = `Order from ${name}:\n\n${order.join("\n")}\n\nTotal: $${total.toFixed(2)}`;
-      let smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
-      window.open(smsUrl, "_blank");
+      let message = `Order from ${name}:\n\n` + order.map(o => `${o.name} x${o.qty} - $${(o.price*o.qty).toFixed(2)}`).join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+      window.open(`sms:${phoneNumber}?body=${encodeURIComponent(message)}`, "_blank");
     });
 
     document.getElementById("clear-order").addEventListener("click", () => {
       order = [];
       total = 0;
       orderList.innerHTML = "";
-      orderTotal.textContent = total.toFixed(2);
+      orderTotal.textContent = "0.00";
       document.getElementById("customer-name").value = "";
     });
+
+    function getOrderDetails() { return { items: order, total: total }; }
   </script>
 
-  <!-- PayPal Sandbox SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AflwFldTW9Ya0Yq_09ddjmMOehUfeuYA3ISXBZvn5rWglmNLiBcEfILIgLMfygYAdUyaJenfaMBRP-hN&currency=USD"></script>
+  <!-- PayPal (LIVE) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AXESmgDhC91CvuzYW0d9MJb2WxTdphJq7n10qh30ewl6qZ6361LtMFmu8Uvz0MlFpzpyA4QJSeYXyGPc&currency=USD"></script>
   <script>
     paypal.Buttons({
       createOrder: (data, actions) => {
+        const details = getOrderDetails();
         return actions.order.create({
           purchase_units: [{
-            amount: { value: document.getElementById("order-total").textContent }
+            amount: {
+              value: details.total.toFixed(2),
+              breakdown: { item_total: { currency_code: "USD", value: details.total.toFixed(2) } }
+            },
+            items: details.items.map(o => ({
+              name: o.name,
+              unit_amount: { currency_code: "USD", value: o.price.toFixed(2) },
+              quantity: o.qty
+            }))
           }]
         });
       },
       onApprove: (data, actions) => {
         return actions.order.capture().then(details => {
-          alert("✅ Test payment completed by " + details.payer.name.given_name);
+          alert("✅ Payment completed by " + details.payer.name.given_name);
         });
       }
     }).render('#paypal-button-container');
